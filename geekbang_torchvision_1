@@ -1,0 +1,27 @@
+import torch
+from torch.utils.data import Dataset
+class MyData(Dataset):
+    #初始化存入数据和标签
+    def __init__(self,data_tensor,target_tensor):
+        self.data_tensor=data_tensor
+        self.target_tensor=target_tensor
+
+    def __len__(self):
+        return self.data_tensor.size(0)
+
+    #获得索引的数据和标签
+    def __getitem__(self, index):
+        return self.data_tensor[index],self.target_tensor[index]
+
+def main():
+    data_tensor=torch.randn(10,3)
+    # 2表示值为0~1，10表示10个，4表示四维
+    target_tensor = torch.randint(2,(10,4))
+    mydata = MyData(data_tensor,target_tensor)
+    print('Dataset size:',len(mydata))
+    print('tensor_data[0]:',mydata[0])
+    print('tensor_data[1]:',mydata[1])
+
+
+if __name__=="__main__":
+    main()
